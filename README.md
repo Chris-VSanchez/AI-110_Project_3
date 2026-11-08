@@ -11,9 +11,8 @@ Your goal is to:
 - Evaluate what your system gets right and wrong
 - Reflect on how this mirrors real world AI recommenders
 
-Replace this paragraph with your own summary of what your version does.
-
 ---
+
 ## How The System Works
 
 My music recommendation system uses content-based filtering to recommend songs that match a user's musical preferences. Real-world platforms like Spotify combine collaborative filtering, which uses listening behavior from similar users, with content-based filtering, which analyzes song characteristics. My simulation will focus on content-based filtering to keep the recommendation process simple and understandable.
@@ -145,12 +144,24 @@ You can add more tests in `tests/test_recommender.py`.
 Paste a sample of your recommender's output here as a text block so a reader can see what it produces:
 
 ```
-# e.g.:
-# User profile: genre=indie, mood=chill, energy=low
-# Recommendations:
-#   1. ...
-#   2. ...
-#   3. ...
+User profile: genre=pop, mood=happy, energy=0.8
+
+Top recommendations:
+
+Sunrise City - Score: 3.98
+Because: Genre match (+2.0), Mood match (+1.0), Energy similarity (+0.98)
+
+Gym Hero - Score: 2.87
+Because: Genre match (+2.0), Energy similarity (+0.87)
+
+Rooftop Lights - Score: 1.96
+Because: Mood match (+1.0), Energy similarity (+0.96)
+
+Island Breeze - Score: 1.82
+Because: Mood match (+1.0), Energy similarity (+0.82)
+
+Night Drive Loop - Score: 0.95
+Because: Energy similarity (+0.95)
 ```
 
 **Screenshot or video** *(optional)*: <!-- Insert a screenshot or demo video link here -->
