@@ -14,7 +14,6 @@ Your goal is to:
 Replace this paragraph with your own summary of what your version does.
 
 ---
-
 ## How The System Works
 
 My music recommendation system uses content-based filtering to recommend songs that match a user's musical preferences. Real-world platforms like Spotify combine collaborative filtering, which uses listening behavior from similar users, with content-based filtering, which analyzes song characteristics. My simulation will focus on content-based filtering to keep the recommendation process simple and understandable.
@@ -35,33 +34,75 @@ danceability: How suitable the song is for dancing (0–1).
 acousticness: How acoustic the song sounds (0–1).
 UserProfile Features
 
-Each UserProfile object will store the user's musical preferences:
+The UserProfile will store the user's musical preferences in a dictionary:
 
-preferred_genres: List of favorite genres.
-preferred_moods: List of preferred moods.
-preferred_energy: Desired energy level (0–1).
-preferred_tempo: Preferred tempo in BPM.
-preferred_valence: Preferred positivity level (0–1).
-Recommendation Scoring
+python
+user_profile = {
+    "preferred_genres": ["lofi", "ambient"],
+    "preferred_moods": ["chill", "focused"],
+    "target_energy": 0.40
+}
+
+
+This profile represents someone who enjoys relaxing, low-energy music while studying or working.
+
+# Dataset
+
+The initial dataset contains 10 songs. I plan to expand it to 18 songs by adding more genres and moods, including country, classical, R&B, metal, reggae, folk, electronic, and blues.
+
+This will give the recommender more variety when comparing songs.
+
+# Algorithm Recipe
 
 The Recommender will calculate a score for every song by comparing its features with the user's preferences.
 
-The scoring system will use these weights:
+The scoring rules are:
 
-Genre match: 30%
-Mood match: 25%
-Energy similarity: 20%
-Tempo similarity: 15%
-Valence similarity: 10%
+Matching preferred genre: +2.0 points.
+Matching preferred mood: +1.0 point.
+Energy similarity: 0–1.0 points.
 
-For numerical features, the system will reward songs that are closer to the user's preferred values rather than simply rewarding higher or lower values.
+The energy similarity formula is:
+
+EnergyScore = 1 - abs(song.energy - target_energy)
+
+This rewards songs whose energy is closer to the user's preferred energy level.
+
+The maximum possible score is 4 points.
 
 # Ranking and Recommendations
 
-After calculating the score for each song, the recommender will sort all songs from highest to lowest score. It will then return the top 5 songs with the highest matching scores.
+After calculating the score for each song, the recommender will:
 
-The goal is to create a simple recommendation system that understands a user's musical vibe and suggests songs that match their preferences.
+Loop through all songs in the dataset.
+Calculate each song's matching score.
+Store each song with its score.
+Sort the songs from highest to lowest score.
+Return the top 5 recommendations.
+Data Flow
+mermaid
+flowchart TD
+    A[Load User Preferences] --> B[Load songs.csv]
+    B --> C[Loop Through Songs]
+    C --> D[Compare Genre and Mood]
+    D --> E[Calculate Energy Similarity]
+    E --> F[Calculate Total Score]
+    F --> G{More Songs?}
+    G -->|Yes| C
+    G -->|No| H[Sort Scores]
+    H --> I[Return Top 5 Recommendations]
 
+# Potential Biases and Limitations
+
+My recommendation system might over-prioritize genre because genre matching is worth more points than mood matching. This could cause it to overlook songs from different genres that match the user's mood and energy preferences.
+
+Another limitation is that the system only considers the preferences stored in the user profile. It does not learn from actual listening behavior, skips, or likes.
+
+In the future, I could improve the system by adjusting feature weights, adding more musical attributes, or incorporating collaborative filtering.
+
+# Project Goal
+
+The goal is to create a simple recommendation system that understands a user's musical vibe, compares it against song attributes, and suggests the five songs that best match their preferences.
 ---
 
 ## Getting Started

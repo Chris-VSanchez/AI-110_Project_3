@@ -1,0 +1,13 @@
+flowchart TD
+    A[Start] --> B[Load songs.csv]
+    B --> C[Load UserProfile]
+    C --> D[Loop Through Every Song]
+    D --> E[Compare Genre]
+    E --> F[Compare Mood]
+    F --> G[Calculate Energy Similarity]
+    G --> H[Calculate Total Score]
+    H --> I{More Songs?}
+    I -->|Yes| D
+    I -->|No| J[Sort by Highest Score]
+    J --> K[Select Top 5 Songs]
+    K --> L[Display Recommendations]
