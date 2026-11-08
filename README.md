@@ -17,17 +17,50 @@ Replace this paragraph with your own summary of what your version does.
 
 ## How The System Works
 
-Explain your design in plain language.
+My music recommendation system uses content-based filtering to recommend songs that match a user's musical preferences. Real-world platforms like Spotify combine collaborative filtering, which uses listening behavior from similar users, with content-based filtering, which analyzes song characteristics. My simulation will focus on content-based filtering to keep the recommendation process simple and understandable.
 
-Some prompts to answer:
+# Song Features
 
-- What features does each `Song` use in your system
-  - For example: genre, mood, energy, tempo
-- What information does your `UserProfile` store
-- How does your `Recommender` compute a score for each song
-- How do you choose which songs to recommend
+Each Song object will contain:
 
-You can include a simple diagram or bullet list if helpful.
+id: Unique song identifier.
+title: Name of the song.
+artist: Artist name.
+genre: Musical genre.
+mood: Emotional feeling of the song.
+energy: How energetic the song is (0–1).
+tempo_bpm: Speed of the song in beats per minute.
+valence: How positive or happy the music sounds (0–1).
+danceability: How suitable the song is for dancing (0–1).
+acousticness: How acoustic the song sounds (0–1).
+UserProfile Features
+
+Each UserProfile object will store the user's musical preferences:
+
+preferred_genres: List of favorite genres.
+preferred_moods: List of preferred moods.
+preferred_energy: Desired energy level (0–1).
+preferred_tempo: Preferred tempo in BPM.
+preferred_valence: Preferred positivity level (0–1).
+Recommendation Scoring
+
+The Recommender will calculate a score for every song by comparing its features with the user's preferences.
+
+The scoring system will use these weights:
+
+Genre match: 30%
+Mood match: 25%
+Energy similarity: 20%
+Tempo similarity: 15%
+Valence similarity: 10%
+
+For numerical features, the system will reward songs that are closer to the user's preferred values rather than simply rewarding higher or lower values.
+
+# Ranking and Recommendations
+
+After calculating the score for each song, the recommender will sort all songs from highest to lowest score. It will then return the top 5 songs with the highest matching scores.
+
+The goal is to create a simple recommendation system that understands a user's musical vibe and suggests songs that match their preferences.
 
 ---
 
